@@ -29,7 +29,7 @@ class GeminiAPIClient:
             retry_delay: float = DEFAULT_RETRY_DELAY,
     ):
         # 读取 token 与 base_url（优先参数，然后环境变量）
-        timeout = 600  # 秒
+        timeout = 600000  # 秒
         self.max_retries = max_retries
         self.retry_delay = retry_delay
 
@@ -40,7 +40,7 @@ class GeminiAPIClient:
                 api_version="v1beta",
                 base_url=BASE_URL,
             )
-            self.client = genai.Client(api_key=API_KEY, http_options=http_opts)
+            self.client = genai.Client(api_key=api_key, http_options=http_opts)
         except Exception as e:
             raise ValueError(f"Failed to initialize Gemini client: {str(e)}")
 
