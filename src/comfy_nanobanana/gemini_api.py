@@ -35,13 +35,12 @@ class GeminiAPIClient:
 
         # 初始化 genai 客户端：尽量走 HTTPOptions（较新 SDK）
         try:
-            if hasattr(genai, "HTTPOptions"):
-                http_opts = genai.HTTPOptions(
-                    timeout=timeout,
-                    api_version="v1beta",
-                    base_url=BASE_URL,
-                )
-                self.client = genai.Client(api_key=API_KEY, http_options=http_opts)
+            http_opts = types.HttpOptions(
+                timeout=timeout,
+                api_version="v1beta",
+                base_url=BASE_URL,
+            )
+            self.client = genai.Client(api_key=API_KEY, http_options=http_opts)
         except Exception as e:
             raise ValueError(f"Failed to initialize Gemini client: {str(e)}")
 
